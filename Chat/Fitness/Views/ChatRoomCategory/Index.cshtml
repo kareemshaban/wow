@@ -1,0 +1,73 @@
+﻿@model List<ChatRoomCategory>
+@{
+    ViewData["Title"] = "فئات الغرف";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>فئات الغرف</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>تاريخ الانشاء</th>
+                        <th>الصوره</th>
+                        <th><a class="btn btn-success btn-block" href="/ChatRoomCategory/Create"><i class="fa fa-plus"></i></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ChatRoomCategory item in Model)
+                    {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td><img src="/categoryImgs/@item.ImgUrl" class="thumbnail" style="width:100px;height:60px" /></td>
+                        <td >@item.CreateDate.ToShortDateString()</td>
+                        <td>
+                            <a class="btn btn-secondary" href="/ChatRoomCategory/Edit/@item.Id"><i class="fa fa-pencil"></i></a>
+                            <button class="btn btn-primary" id="@item.Id"><i class="fa fa-remove"></i></button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@*<button class="btn btn-success Send">Send message</button>*@
+@section scripts{
+    <!-- Datatable js-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+@*<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>*@
+<script>
+        $(document).ready(function () {          
+            $(".btn-primary").click(function () {
+                debugger;
+                if (confirm("هل انت متاكد من ذلك")) {
+                    var btn = this;
+                    var id = btn.id;
+                    var _row = btn.parentElement.parentElement;
+                    if (id > 0) {
+                        $.ajax({
+                            url: "/ChatRoomCategory/Delete/" + id,
+                            type: "POST",
+                            success: function (data) {
+                                if (data.msg == 'Done') {
+                                    _row.remove();
+                                } else {
+                                    alert("يرجى المحاوله مره اخرى")
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        })
+</script>
+}

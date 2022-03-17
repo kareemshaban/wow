@@ -1,0 +1,68 @@
+﻿@model List<Gold>
+@{
+    ViewData["Title"] = "كل الدهب";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>كل الدهب</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>السعر</th>
+                        <th><a class="btn btn-success btn-block" href="/Gold/Create"><i class="fa fa-plus"></i></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Gold item in Model)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.Price</td>
+                            <td>
+                                <a class="btn btn-secondary" href="/Gold/Edit/@item.Id"><i class="fa fa-pencil"></i></a>
+                                <button class="btn btn-primary" id="@item.Id"><i class="fa fa-remove"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <!-- Datatable js-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".btn-primary").click(function () {
+                debugger;
+                if (confirm("هل انت متاكد من ذلك")) {
+                    var btn = this;
+                    var id = btn.id;
+                    var _row = btn.parentElement.parentElement;
+                    if (id > 0) {
+                        $.ajax({
+                            url: "/Gold/Delete/" + id,
+                            type: "POST",
+                            success: function (data) {
+                                if (data.msg == 'Done') {
+                                    _row.remove();
+                                } else {
+                                    alert("يرجى المحاوله مره اخرى")
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        })
+    </script>
+}

@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>اضافه مستخدم</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left"></i></li>
+                    <li><i class="view-html fa fa-code"></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <form action="/api/Account/Register" method="post">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold">اسم الفئه</label>
+                            <input type="text" name="CatName" class="form-control" />
+                        </div>
+                        <div class="form-group row">
+                            <input type="submit" value="حفظ الفئه" class="btn btn-secondary btn-block" id="btnSave" />
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <input type="file" name="imgUploader" id="imgUploader" class="form-control" style="margin-top:25px" />
+                        <img id="imgShow" class="thumbnail" style="width:305px;display:none;margin-top: 5px;height: 214px;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@*<button class="btn btn-secondary btn-block" id="upload">upload</button>
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $("#upload").click(function () {
+                    var dataSend = new FormData()
+                    dataSend.append("file", $("#imgUploader").get(0).files[0]);
+                    dataSend.append("extension",".jpg");
+                    $.ajax({
+                        url: "https://folah.live/api/account/UploadImage",
+                        type: "POST",
+                        contentType: false,
+                        processData: false,
+                        data: dataSend,
+                        success: function (data) {
+                            if (data.message == 'Success') {
+                                alert(data.message)
+                            } else {
+                                alert(data.message)
+                            }
+                        }
+                    })
+                })
+                $("#imgUploader").change(function () {
+                    var img = $("#imgUploader").get(0).files[0];
+                    if (img != "") {
+                        var fileName = img.name;
+                        var _index = fileName.lastIndexOf('.') + 1
+                        var extensionImg = fileName.substring(_index);
+                        var ValidExtension = ['JPG', 'jpg', 'jpeg', 'png', 'PNG', 'GIF', 'gif', 'WEBP', 'TIFF', 'PSD', 'RAW', 'BMP', 'HEIF', 'INDD', 'jpeg 2000', 'JPEG 2000'];
+                        if ($.inArray(extensionImg, ValidExtension) == -1) {
+                            alert('الملف المرفوع يجب ان يكون صورة');
+                            $("#imgUploader").val('')
+                            $("#imgShow").css("display", "none");
+                            return false;
+                        }
+                        //>>>>>>Size
+                        var fileSize = img.size / 1024 / 1024;
+                        if (fileSize > 10) {
+                            alert("الصوره يجب ان لا تزيد عن 10  ميجا");
+                            $("#imgUploader").val('')
+                            $("#imgShow").css("display", "none");
+                            return false;
+                        }
+                        //>>>>>>>>Show
+                        var reader = new FileReader;
+                        var image = new Image;
+                        reader.readAsDataURL(img);
+                        reader.onload = function (_file) {
+                            image.src = _file.target.result;
+                            image.onload = function () {
+                                $("#imgShow").attr('src', _file.target.result);
+                                $("#imgShow").css("display", "block");
+                            }
+                        }
+                    }
+                })
+            })
+        </script>
+    }*@
+

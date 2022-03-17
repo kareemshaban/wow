@@ -1,0 +1,151 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+@{
+    ViewData["Title"] = "اضافه صلاحيات";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>اضافه صلاحيات </h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left"></i></li>
+                    <li><i class="view-html fa fa-code"></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="control-label" style="font-weight:bold;float:right">البريد الالكترونى </label>
+                            <input type="email" id="Email" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label" style="font-weight:bold;float:right">اسم المستخدم</label>
+                            <input type="text" id="UserName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="control-label" style="font-weight:bold;float:right">الرقم السرى </label>
+                            <input type="password" id="Password" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label" style="font-weight:bold;float:right">الجنس </label>
+                            <select id="Gender" class="form-control">
+                                <option value="">يرجى اختيار الجنس</option>
+                                <option value="1">ذكر</option>
+                                <option value="2">انثى</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="control-label" style="font-weight:bold;float:right">الاسم بالكامل</label>
+                            <input type="text" id="FulName" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label" style="font-weight:bold;float:right">صلاحيات المستخدم </label>
+                            <select id="roleName" class="form-control">
+                                <option value="">يرجى اختيار صلاحيه للمستخدم</option>
+                                @foreach (var item in Model)
+                                {
+                                    if (item.Name == "AddUsers")
+                                    {
+                                        <option value="@item.Name">اضافه مستخدمين</option>
+                                    }
+                                    else if (item.Name == "ShowUsersChat")
+                                    {
+                                        <option value="@item.Name">معاينه الشات</option>
+                                    }
+                                    else if (item.Name == "AdminstrationChat")
+                                    {
+                                        <option value="@item.Name">شات الاداره</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <button id="btnCreateUser" class="btn btn-success btn-block">اضافه مستخدم</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/assets/js/notify.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnCreateUser").click(function () {
+                var email = $("#Email").val();
+                if (email != "") {
+                    $("#Email").css("border", "1px solid #cccccc")
+                } else { $("#Email").css("border", "1px solid red"); $("#Email").select(); return; }
+                var Password = $("#Password").val();
+                if (Password != "") {
+                    $("#Password").css("border", "1px solid #cccccc")
+                } else { $("#Password").css("border", "1px solid red"); $("#Password").select(); return; }
+                var UserName = $("#UserName").val();
+                if (UserName != "") {
+                    $("#UserName").css("border", "1px solid #cccccc")
+                } else { $("#UserName").css("border", "1px solid red"); $("#UserName").select(); return; }
+                var Gender = $("#Gender").val();
+                if (Gender != "") {
+                    $("#Gender").css("border", "1px solid #cccccc")
+                } else { $("#Gender").css("border", "1px solid red"); $("#Gender").select(); return; }
+
+                var roleName = $("#roleName").val();
+                if (roleName != "") {
+                    $("#roleName").css("border", "1px solid #cccccc")
+                } else { $("#roleName").css("border", "1px solid red"); $("#roleName").select(); return; }
+                var FulName = $("#FulName").val();
+                if (FulName != "") {
+                    $("#FulName").css("border", "1px solid #cccccc")
+                } else { $("#FulName").css("border", "1px solid red"); $("#FulName").select(); return; }
+                $.ajax({
+                    url: "/Adminstration/createUser",
+                    type: "POST",
+                    headers: {
+                        contentType: "application/json; charset=utf-8",
+                        accepts: "*/*",
+                    },
+                    data: {
+                        "Email": email,
+                        "Password": Password,
+                        "ConfirmPassword": Password,
+                        "UserName": UserName,
+                        "Gender": Gender,
+                        "FulName": FulName,
+                        "roleName": roleName,
+                    },
+                    success: function (data) {
+                        if (data.message == 'success') {
+                            $.notify(data.alertMsg, { globalPosition: "top center", className: "success" })
+                            var email = $("#Email").val('');
+                            $("#Password").val('');
+                            $("#UserName").val('');
+                            $("#Gender").val('');
+                            $("#roleName").val('');
+                            $("#FulName").val('');
+                        } else {
+                              $.notify(data.alertMsg, {
+                                    globalPosition: "top center",
+                                    className: "error"
+                                })
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+}

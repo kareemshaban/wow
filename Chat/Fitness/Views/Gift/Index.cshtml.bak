@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Gift>
+@{
+    ViewData["Title"] = "كل الهدايا";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>الهدايا</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>السعر</th>
+                        <th>الفئه</th>
+                        <th>عدد الايام</th>
+                        <th>الصوره</th>
+                        <th><a class="btn btn-success btn-block" href="/Gift/Create"><i class="fa fa-plus"></i></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Gift item in Model)
+                    {
+                        <tr>
+                            <td>@item.GiftName</td>
+                            <td>@item.Price</td>
+                            <td>
+                                @item.Category.CatName
+                            </td>
+                            <td>
+                                @item.DaysCount
+                            </td>
+                            <td style="text-align:center"><img src="~/productImgs/@item.ImgUrl" alt="" class="img-80 thumbnail img-fluid blur-up lazyloaded"></td>
+                            <td>
+                                <a class="btn btn-secondary" href="/Gift/Edit/@item.Id">تعديل </a>
+                                <button class="btn btn-primary" id="@item.Id">حذف </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <!-- Datatable js-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+    <script>
+        var btnEdits = document.getElementsByClassName('btn-primary')
+        for (var i = 0; i < btnEdits.length; i++) {
+            var btnEdit = btnEdits[i];
+            btnEdit.addEventListener('click', editFun)
+        }
+        function editFun(event) {
+            var btn = event.target;
+            if (confirm("هل انت متاكد من ذلك")) {
+                var id = btn.id;
+                var _row = btn.parentElement.parentElement;
+                if (id > 0) {
+                    $.ajax({
+                        url: "/Gift/Delete/" + id,
+                        type: "POST",
+                        success: function (data) {
+                            if (data.msg == 'Done') {
+                                _row.remove();
+                            } else {
+                                alert("يرجى المحاوله مره اخرى")
+                            }
+                        }
+                    })
+                }
+            }
+        }
+    </script>
+}

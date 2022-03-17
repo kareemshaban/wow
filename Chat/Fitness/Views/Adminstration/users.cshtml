@@ -1,0 +1,105 @@
+﻿@model List<Fitness.Controllers.usersCls>
+@{
+    ViewData["Title"] = "المستخدمين";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>المستخدمين</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <div class="col-md-12" style="border-bottom:1px dashed #eee;margin-bottom:20px;padding-bottom:20px">
+                <label class="control-label" style="float:right">  عدد ايام الحظر  <span style="color:red">*</span></label>
+                <input  class="form-control" id="days" placeholder="يرجى كتابه عدد ايام الحظر  ثم اختيار المستخدم"/>
+            </div>
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th style="width:30%;text-align:center">اسم المستخدم</th>
+                        <th style="width:10%;text-align:center">المعرف </th>
+                        <th style="width:30%;text-align:center">الصوره</th>
+                        <th style="width:30%;text-align:center">الحركات  </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Fitness.Controllers.usersCls item in Model)
+                    {
+                        <tr>
+                            <td>@item.FullName</td>
+                            <td style="text-align:center"> @item.UserId</td>
+                            <td style="text-align:center"><img src="~/UsersImage/@item.imgUrl" alt="" class="img-80 thumbnail img-fluid blur-up lazyloaded"></td>
+                            <td>
+                                <a class="btn btn-secondary" href="/Messenger/chating?userId=@item.Id">شات</a>
+                                <button class="btn btn-primary blockUser" id="@item.UserName">حظر</button>
+                                <a class="btn btn-outline-secondary" href="/Adminstration/UpdateUser?userId=@item.Id">تعديل</a>
+                                <button class="btn btn-primary deleteUser" id="@item.UserName">حذف</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <!-- Datatable js-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+    <script src="~/assets/js/notify.min.js"></script>
+    <script>
+        var DeleteBtns = document.getElementsByClassName("deleteUser")
+        for (var e = 0; e < DeleteBtns.length; e++) {
+            var DeleteBtn = DeleteBtns[e];
+            DeleteBtn.addEventListener('click', function (event) {
+                var btn = event.target;
+                var userName = btn.id;
+                var clickedRow = btn.parentElement.parentElement;
+                if (confirm("هل  تريد حذف المستخدم ؟؟")) {
+                    $.ajax({
+                        url: "/Adminstration/deleteUser",
+                        type: "POST",
+                        data: { "UserName": userName  },
+                        success: function (data) {
+                            if (data.msg == 'Done') {
+                                $.notify(" تمت حذف المستخدم بنجاح ", { globalPosition: "top center", className: "success" })
+                                $(clickedRow).remove();
+                            } else {
+                                $.notify("يرجى المحاوله مره اخرى", { globalPosition: "top center", className: "error" })
+                            }
+                        }
+                    })
+                }
+            })
+        }
+                //---------------------
+        var CheckBtns = document.getElementsByClassName("blockUser")
+        for (var e = 0; e < CheckBtns.length; e++) {
+            var CheckBtn = CheckBtns[e];
+            CheckBtn.addEventListener('click', function (event) {
+                var btn = event.target;
+                var userName = btn.id;
+                var clickedRow = btn.parentElement.parentElement;
+                var days = $("#days").val();
+                if (days == 0 || days < 0) {
+                    alert("يرجى اختيار عدد ايام الحظر"); return;
+                }
+                $.ajax({
+                    url: "/Adminstration/block",
+                    type: "POST",
+                    data: { "UserName": userName, "days": days },
+                    success: function (data) {
+                        if (data.msg == 'Done') {
+                            $.notify(" تمت حظر المستخدم بنجاح ", { globalPosition: "top center", className: "success" })
+                            $(clickedRow).remove();
+                        } else {
+                            $.notify("يرجى المحاوله مره اخرى", { globalPosition: "top center", className: "error" })
+                        }
+                    }
+                })
+            })
+        }
+    </script>
+}

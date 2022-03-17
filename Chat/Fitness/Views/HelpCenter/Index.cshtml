@@ -1,0 +1,40 @@
+﻿@model List<HelpCenter>
+@{
+    ViewData["Title"] = "مركز المساعده";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>مركز المساعده</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th>اسم المستخدم</th>
+                        <th>التاريخ    </th>
+                        <th>  عنوان  الشكوى  </th>
+                        <th>  تفاصيل الشكوى  </th>
+                        <th>رقم الهاتف    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (HelpCenter item in Model)
+                    {
+                    <tr>
+                        <td>@item.ApplicationUser.UserName  </td>
+                        <td>@item.create_at   </td>
+                        <td>@item.issueTitle   </td>
+                        <td>@item.details </td>
+                        <td>@item.phoneNumber  </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <History>True|2021-08-18T23:56:11.4862693Z;True|2021-08-19T00:45:21.0046370+02:00;False|2021-08-19T00:15:13.7523281+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="FitnessDbContextConnection">
+      <Value>Data Source=SQL5065.site4now.net%3bInitial Catalog=DB_A6C612_mostafamahbob%3bUser Id=DB_A6C612_mostafamahbob_admin%3bPassword=700700700Q</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

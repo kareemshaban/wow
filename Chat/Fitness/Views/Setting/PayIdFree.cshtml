@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "شراء المعرف مجانياً";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>شراء المعرف مجانياً</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left"></i></li>
+                    <li><i class="view-html fa fa-code"></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (ViewBag.data != null)
+                    {
+                        <div class="form-group row text-center">
+                            <input readonly class="alert alert-danger col-md-12 text-center" style="border-radius:25px" value="@ViewBag.data" />
+                        </div>
+                    }
+                    <form asp-action="SearchUserIdFree" method="post">
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <label class="control-label" style="font-weight:bold;float:right">معرف المستخدم المراد البحث عنه</label>
+                                <input type="number" name="UserId" class="form-control" style="border-radius:25px" value="@ViewBag.searchId" />
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary btn-block" style="margin-top:25px;border-radius:25px">بحث عن المعرف</button>
+                            </div>
+                        </div>
+                    </form>
+                    @if (ViewBag.searchId != null)
+                       {
+                        <form asp-action="PayIdFree" method="post">
+                            <input type="number" name="UserId" hidden value="@ViewBag.searchId" />
+                            <div class="form-group row" style="padding: 9px 0px;">
+                                <div class="col-md-9">
+                                    <label class="control-label" style="font-weight:bold;float:right;margin-right:15px">معرف المستخدم الحالى</label>
+                                    <input type="number" name="IdNow" class="form-control" style="border-radius:25px" />
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="submit" class="btn btn-secondary btn-block" style="margin-top:26px;border-radius:25px" value="شراء مجانى" />
+                                </div>
+                                @*<div class="col-md-3">
+                        <button class="btn btn-secondary btn-block" id="Pay" style="margin-top:26px;border-radius:25px">شراء وخصم القيمه</button>
+                    </div>*@
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

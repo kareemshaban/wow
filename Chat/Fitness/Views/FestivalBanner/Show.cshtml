@@ -1,0 +1,50 @@
+﻿@model Fitness.Models.FestivalBanner
+@{
+    ViewData["Title"] = "معاينه";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>معاينه </h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left"></i></li>
+                    <li><i class="view-html fa fa-code"></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12" style="text-align:right">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label class="control-label">الرساله</label>
+                            <textarea type="text" class="form-control">@Model.Msg</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="control-label">تاريخ البدايه</label>
+                            <input type="text" value="@Model.StartDate.ToShortDateString()" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">تاريخ النهايه</label>
+                            <input type="text" value="@Model.StartDate.AddDays(Model.DaysCount).ToShortDateString()" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-center">
+                            <label class="control-label"  style="display:block">معاينه الصوره</label>
+                            <img class="thumbnail" style="border:1px solid #ddd;" src="~/FestivalBanner/@Model.MainImage" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

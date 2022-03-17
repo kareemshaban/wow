@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multikart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Multikart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" href="~/assets/images/dashboard/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="~/assets/images/dashboard/favicon.png" type="image/x-icon">
+    <title>@ViewBag.Title</title>
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/fontawesome.css">
+    <!-- Flag icon-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/flag-icon.css">
+    <!-- ico-font-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/icofont.css">
+    <!-- Prism css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/prism.css">
+    <!-- Chartist css -->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/chartist.css">
+    <!-- Bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap.css">
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/admin.css">
+</head>
+<body class="rtl">
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper  ">
+        <!-- Page Header Start-->
+        <div class="page-main-header">
+            <div class="main-header-right row">
+                <div class="main-header-left d-lg-none">
+                    <div class="logo-wrapper"><a href="/Category/Index"><span>Chat app</span></a></div>
+                </div>
+                <div class="mobile-sidebar">
+                    <div class="media-body text-right switch-sm">
+                        <label class="switch"><a href="#"><i id="sidebar-toggle" data-feather="align-left"></i></a></label>
+                    </div>
+                </div>
+                <div class="nav-right col">
+                    <ul class="nav-menus">
+                        <li>
+                            <form class="form-inline search-form">
+                                <div class="form-group">
+                                    <input class="form-control-plaintext" type="search" placeholder="ابحث هنا ..."><span class="d-sm-none mobile-search"><i data-feather="search"></i></span>
+                                </div>
+                            </form>
+                        </li>
+                        <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize-2"></i></a></li>
+                        <li class="onhover-dropdown">
+                            <div class="media align-items-center">
+                                <img class="align-self-center pull-right img-50 rounded-circle blur-up lazyloaded" src="../assets/images/dashboard/man.png" alt="header-user">
+                                <div class="dotted-animation"><span class="animate-circle"></span><span class="main-circle"></span></div>
+                            </div>
+                            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+
+                                <ul class="profile-dropdown onhover-show-div p-20 profile-dropdown-hover">
+                                    <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><i data-feather="user"></i>البروفايل</a></li>
+                                    <li>
+                                        <button type="submit" style="border: 0;background-color: white;float: right;"><i data-feather="log-out"></i> Logout</button>
+                                    </li>
+                                </ul>
+                            </form>
+
+                        </li>
+                    </ul>
+                    <div class="d-lg-none mobile-toggle pull-right"><i data-feather="more-horizontal"></i></div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header Ends -->
+        <!-- Page Body Start-->
+        <div class="page-body-wrapper">
+            <!-- Page Sidebar Start-->
+            <div class="page-sidebar">
+                <div class="main-header-left d-none d-lg-block">
+                    <div class="logo-wrapper"><a href="/Category/Index"><span style="font-weight: bolder;font-size: 41px;">Chat App</span></a></div>
+                </div>
+                <div class="sidebar custom-scrollbar">
+                    <div class="sidebar-user text-center">
+                        <div>
+                            <img class="img-60 rounded-circle lazyloaded blur-up" src="../assets/images/dashboard/man.png" alt="#">
+                        </div>
+                        <h6 class="mt-3 f-14">Admin</h6>
+                        <p>general manager.</p>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li><a class="sidebar-header" href="index.html"><i data-feather="home"></i><span>لوحة التحكم</span></a></li>
+                        <li>
+                            <a class="sidebar-header" href="#"><i data-feather="clipboard"></i><span>المستخدمين</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/Adminstration/createUser"><i class="fa fa-circle"></i>انشاء مستخدم</a></li>
+                                <li><a href="/Adminstration/Adminstrationusers"><i class="fa fa-circle"></i>مستخدمى الاداره</a></li>
+                                <li><a href="/Adminstration/users"><i class="fa fa-circle"></i>مستخدمى التطبيق</a></li>
+                                <li><a href="/Adminstration/blocked"><i class="fa fa-circle"></i>المستخدمين الغير نشيطين</a></li>
+                                <li><a href="/Messenger/Index"><i class="fa fa-circle"></i>رسائل الاداره</a></li>
+                                <li><a href="/Messenger/ConflictResolution"><i class="fa fa-circle"></i>فض النزاع</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="sidebar-header" href="#"><i data-feather="box"></i> <span>الفئات</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/Category/Index"><i class="fa fa-circle"></i>كل الفئات</a></li>
+                                <li><a href="/Category/Create"><i class="fa fa-circle"></i>أضافه فئه</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="sidebar-header" href="#"><i data-feather="clipboard"></i><span>غرف الشات</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/ChatRoomCategory/getAll"><i class="fa fa-circle"></i> غرف الشات</a></li>
+                                <li><a href="/ChatRoomCategory/Index"><i class="fa fa-circle"></i>فئات الغرف</a></li>
+                                <li><a href="/ChatRoomCategory/Create"><i class="fa fa-circle"></i>اضافه فئه</a></li>
+                                <li><a href="/Background/Index"><i class="fa fa-circle"></i>الخلفيات</a></li>
+                                <li><a href="/Background/Create"><i class="fa fa-circle"></i>اضافه خلفيه</a></li>
+                                <li><a href="/Emosion/Index"><i class="fa fa-circle"></i>الايموشن</a></li>
+                                <li><a href="/Emosion/Create"><i class="fa fa-circle"></i>اضافه ايموشن</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="tag"></i><span>الهدايا</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/Gift/Index"><i class="fa fa-circle"></i>كل الهدايا</a></li>
+                                <li><a href="/Gift/Create"><i class="fa fa-circle"></i>اضافه هديه</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="tag"></i><span>الاصناف</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/Product/Index"><i class="fa fa-circle"></i>كل الاصناف</a></li>
+                                <li><a href="/Product/Create"><i class="fa fa-circle"></i>اضافه صنف</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="dollar-sign"></i><span>الدهب</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/Gold/Index"><i class="fa fa-circle"></i>كل الدهب</a></li>
+                                <li><a href="/Gold/Create"><i class="fa fa-circle"></i>اضافه دهب </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="sidebar-header" href="#"><i data-feather="clipboard"></i><span>المستويات</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/Level/Index"><i class="fa fa-circle"></i>المستويات للهدايا المرسله</a></li>
+                                <li><a href="/OtherLevel/Index"><i class="fa fa-circle"></i>المستويات الاخرى</a></li>
+                                <li><a href="/ChargingLevel/Index"><i class="fa fa-circle"></i>مستويات الشحن</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="tag"></i><span>معرف المستخدم</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/Setting/PayIdFree"><i class="fa fa-circle"></i>شراء مجانى</a></li>
+                                <li><a href="/Setting/PayId"><i class="fa fa-circle"></i>شراء</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="tag"></i><span>البانرات</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/MainBanner/index"><i class="fa fa-circle"></i>البانرات الاساسية</a></li>
+                                <li><a href="/FestivalBanner/index"><i class="fa fa-circle"></i>بانرات الحفلات</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="sidebar-header" href="/Setting/Index"><i data-feather="camera"></i><span>الاعدادات</span></a></li>
+                        <li><a class="sidebar-header" href="/HelpCenter/Index"><i data-feather="camera"></i><span>الشكاوى</span></a></li>
+                        <li><a class="sidebar-header" href="/ShowPosts/All"><i data-feather="camera"></i><span>البوستات</span></a></li>
+                        <li>
+                            <a class="sidebar-header" href="#"><i data-feather="box"></i> <span>الدول</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/Country/Index"><i class="fa fa-circle"></i>كل الدول</a></li>
+                                <li><a href="/Country/Create"><i class="fa fa-circle"></i>أضافه دوله</a></li>
+                            </ul>
+                        </li>
+                        @*<li>
+                            <a class="sidebar-header" href="#"><i data-feather="align-left"></i><span>Menus</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="menu-list.html"><i class="fa fa-circle"></i>Menu Lists</a></li>
+                                <li><a href="create-menu.html"><i class="fa fa-circle"></i>Create Menu</a></li>
+                            </ul>
+                        </li>
+                         <li>
+            <a class="sidebar-header" href=""><i data-feather="user-plus"></i><span>Users</span><i class="fa fa-angle-right pull-right"></i></a>
+            <ul class="sidebar-submenu">
+                <li><a href="user-list.html"><i class="fa fa-circle"></i>User List</a></li>
+                <li><a href="create-user.html"><i class="fa fa-circle"></i>Create User</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="sidebar-header" href=""><i data-feather="users"></i><span>Vendors</span><i class="fa fa-angle-right pull-right"></i></a>
+            <ul class="sidebar-submenu">
+                <li><a href="list-vendor.html"><i class="fa fa-circle"></i>Vendor List</a></li>
+                <li><a href="create-vendors.html"><i class="fa fa-circle"></i>Create Vendor</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="sidebar-header" href=""><i data-feather="chrome"></i><span>Localization</span><i class="fa fa-angle-right pull-right"></i></a>
+            <ul class="sidebar-submenu">
+                <li><a href="translations.html"><i class="fa fa-circle"></i>Translations</a></li>
+                <li><a href="currency-rates.html"><i class="fa fa-circle"></i>Currency Rates</a></li>
+                <li><a href="taxes.html"><i class="fa fa-circle"></i>Taxes</a></li>
+            </ul>
+        </li>
+        <li><a class="sidebar-header" href="reports.html"><i data-feather="bar-chart"></i><span>Reports</span></a></li>
+        <li>
+            <a class="sidebar-header" href=""><i data-feather="settings"></i><span>Settings</span><i class="fa fa-angle-right pull-right"></i></a>
+            <ul class="sidebar-submenu">
+                <li><a href="profile.html"><i class="fa fa-circle"></i>Profile</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="sidebar-header" href="invoice.html"><i data-feather="archive"></i><span>Invoice</span></a>
+        </li>
+        <li>
+            <a class="sidebar-header" href="login.html"><i data-feather="log-in"></i><span>Login</span></a>
+        </li>*@
+                    </ul>
+                </div>
+            </div>
+            <!-- Page Sidebar Ends-->
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+
+            <!-- footer start-->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 footer-copyright">
+                            <p class="mb-0 text-center">Copyright @DateTime.Now.Year © WOW </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- footer end-->
+        </div>
+    </div>
+    <!-- latest jquery-->
+    <script src="~/assets/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap js-->
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.js"></script>
+    <!-- feather icon js-->
+    <script src="~/assets/js/feather-icon/feather.min.js"></script>
+    <script src="~/assets/js/feather-icon/feather-icon.js"></script>
+    <!-- Sidebar jquery-->
+    <script src="~/assets/js/sidebar-menu.js"></script>
+    <!-- lazyload js-->
+    <script src="~/assets/js/lazysizes.min.js"></script>
+    <!--Customizer admin-->
+    <script src="~/assets/js/admin-customizer.js"></script>
+    <!--dashboard custom js-->
+    @*<script src="~/assets/js/dashboard/default.js"></script>*@
+    <!--right sidebar js-->
+    <script src="~/assets/js/chat-menu.js"></script>
+    <!--height equal js-->
+    <script src="~/assets/js/height-equal.js"></script>
+    <!-- lazyload js-->
+    <script src="~/assets/js/lazysizes.min.js"></script>
+    <!--script admin-->
+    <script src="~/assets/js/admin-script.js"></script>
+    @RenderSection("scripts", required: false)
+    <script src="~/assets/js/notify.min.js"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".custom-theme").css("dispaly","none")
+            var chatBody = document.getElementsByClassName('chat-box')[0]
+            const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+            connection.on("MsgFromUser", function (SenderName, Msg, SenderId, date) {
+                //Check if adminstration open chat  between  this  user
+                if ('@ViewBag.userchatId' == SenderId) {
+                    $.notify("وصلتلك رساله جديده من " + SenderName, { globalPosition: "bottom right", className: "success" })
+                    var msgData = '<div class="chat-r"><div class="sp"></div><div class="mess mess-r"><p style="color:#626060">' + Msg + '</p><div class="check"><span>' + date + '</span></div></div></div>';
+                    $(".chat-box").append(msgData);           
+                    chatBody.scrollBy(0, 405250)
+                }
+            })
+            connection.start().then(function () { connection.invoke('GetConnectionId','@User.Identity.Name').then(function (connectionId) {}); });;
+            // connection.start();
+            $("#msg").keyup(function (e) {
+                if (e.keyCode == 13 && $("#msg").val()!="") {
+                    e.preventDefault();
+                    sendMsg()
+                }
+            })
+            $("#btnSend").click(function () {
+                sendMsg()
+            })
+            function sendMsg() {
+                debugger;
+                var msg = $("#msg").val().trim();
+                if (msg == "") {
+                    alert("يرجى ادخال رساله"); return;
+                }
+                var userId = '@ViewBag.userchatId';
+                if (userId == "") {
+                    location.reload(); return;
+                }
+                var adminstrationChat = '@ViewBag.adminstrationChat';
+                $("#btnSend").css("display", "none")
+                connection.invoke('SendMsgByAdminstration', msg, userId, adminstrationChat).then(function (data) {
+                    if (data.message == "Done") {
+                        var msgData = '<div class="chat-l"><div class="mess"><p style="color:#626060">' + msg + '</p><div class="check"><span>' + data.date + '</span></div></div><div class="sp"></div></div>';
+                        $(".chat-box").append(msgData);
+                        $("#msg").val('');
+                        $("#btnSend").css("display", "block")
+                        chatBody.scrollBy(0, 405250)
+                    } else {
+                        alert("هناك خطأ ما .. يرجى التحقق من الانترنت واعاده المحاولة");
+                        $("#btnSend").css("display", "block")
+                    }
+                })
+            }
+            chatBody.scrollBy(0, 200000)
+        })
+    </script>
+</body>
+</html>

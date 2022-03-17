@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>D:\0-Working\0-Vs 2017\WowApplication\publish\V1</_PublishTargetUrl>
+    <History>True|2021-07-12T15:11:21.3860541Z;True|2021-06-29T20:37:39.4406537+02:00;True|2021-06-29T20:32:54.3494332+02:00;True|2021-06-29T20:01:43.1557811+02:00;True|2021-06-29T19:12:54.1395743+02:00;True|2021-06-24T16:44:22.1667443+02:00;True|2021-06-24T10:32:27.5990444+02:00;True|2021-06-24T10:22:41.8342373+02:00;True|2021-06-23T18:16:34.5099740+02:00;True|2021-06-22T22:41:36.0255621+02:00;True|2021-06-22T21:34:17.7461906+02:00;True|2021-06-22T19:59:08.1007643+02:00;True|2021-06-22T14:47:16.4562311+02:00;True|2021-06-10T12:43:28.6371514+02:00;True|2021-06-09T19:00:35.5527109+02:00;True|2021-06-09T18:38:28.5165058+02:00;True|2021-06-06T23:08:42.9044588+02:00;True|2021-06-05T11:25:18.2673775+02:00;True|2021-06-03T22:25:22.8117672+02:00;True|2021-06-03T19:24:38.7351964+02:00;True|2021-05-30T14:49:32.9596183+02:00;True|2021-05-30T13:26:14.2636180+02:00;</History>
+  </PropertyGroup>
+</Project>

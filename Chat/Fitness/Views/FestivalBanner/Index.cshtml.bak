@@ -1,0 +1,146 @@
+﻿@model List<Fitness.Models.ViewModel.FestivalBannerViewModel>
+@{
+    ViewData["Title"] = "بانرات الحفلات";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>البانرات</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;width:10%">معرف المستخدم</th>
+                        <th style="text-align:center;width:15%">اسم المستخدم</th>
+                        <th style="text-align:center;width:30%">الرساله</th>
+                        @*<th style="text-align:center;width:15%">الصوره </th>*@
+                        <th style="text-align:center;width:10%">تاريخ البدايه</th>
+                        <th style="text-align:center;width:5%">الايام</th>
+                        <th style="text-align:center;width:30%">القبول</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Fitness.Models.ViewModel.FestivalBannerViewModel item in Model)
+                    {
+                    <tr>
+                        <td>@item.UserId</td>
+                        <td>@item.FulName</td>
+                        <td>@item.Msg</td>
+                       @* <td style="text-align:center"><img src="~/FestivalBanner/@item.MainImage" alt="" class="img-80 thumbnail img-fluid blur-up lazyloaded"></td>*@
+                        <td>@Convert.ToDateTime(@item.StartDate)</td>
+                        <td>@item.DaysCount</td>
+                        <td>
+                            @if (!item.Approve)
+                            {
+                            <button class="btn btn-primary approve" id="@item.Id">قبول</button>
+                            <button class="btn btn-danger refuse" id="@item.Id">رفض</button>
+                            <a target="_blank" href="/FestivalBanner/Show/@item.Id" class="btn btn-primary">معاينه</a>
+                            }
+                            else
+                            {
+                            <button class="btn btn-primary deletBanner" id="@item.Id">حذف</button>
+                            <a target="_blank" href="/FestivalBanner/Show/@item.Id" class="btn btn-primary" >معاينه</a>
+                            }
+
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@*<button class="btn btn-success Send">Send message</button>*@
+@section scripts{
+    <!-- Datatable js-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+    <script>
+        var btnapproves = document.getElementsByClassName('approve')
+        for (var i = 0; i < btnapproves.length; i++) {
+            var btnapprove = btnapproves[i];
+            btnapprove.addEventListener('click', approveFun)
+        }
+        function approveFun(event) {
+            var btn = event.target;
+            if (confirm("هل انت متاكد من ذلك")) {
+                var id = btn.id;
+                var _row = btn.parentElement.parentElement;
+                if (id > 0) {
+                    $.ajax({
+                        url: "/FestivalBanner/Approve/" + id,
+                        type: "POST",
+                        success: function (data) {
+                            if (data.msg == 'Done') {
+                                location.reload();
+                                alert("تم قبول البنر بنجاح")
+                            } else {
+                                alert("يرجى المحاوله مره اخرى")
+                            }
+                        }
+                    })
+                }
+            }
+        }         
+        //--------------
+        var btnrefuses = document.getElementsByClassName('refuse')
+        for (var i = 0; i < btnrefuses.length; i++) {
+            var btnrefuse = btnrefuses[i];
+            btnrefuse.addEventListener('click', refuseFun)
+        }
+        function refuseFun(event) {
+            var btn = event.target;
+            if (confirm("هل انت متاكد من ذلك")) {
+                var id = btn.id;
+                var _row = btn.parentElement.parentElement;
+                if (id > 0) {
+                    $.ajax({
+                        url: "/FestivalBanner/Refuse/" + id,
+                        type: "POST",
+                        success: function (data) {
+                            if (data.msg == 'Done') {
+                                alert("تم رفض البنر ")
+                                _row.remove();
+                                //Open adminstration chat
+                                location.href = "/Messenger/chating?userId=" + data.userId
+                            } else {
+                                alert("يرجى المحاوله مره اخرى")
+                            }
+                        }
+                    })
+                }
+            }
+        }     
+        //----------------
+        var btndeletBanners = document.getElementsByClassName('deletBanner')
+        for (var i = 0; i < btndeletBanners.length; i++) {
+            var btndeletBanner = btndeletBanners[i];
+            btnrefuse.addEventListener('click', deletBannerFun)
+        }
+        function deletBannerFun(event) {
+            var btn = event.target;
+            if (confirm("هل انت متاكد من ذلك")) {
+                var id = btn.id;
+                var _row = btn.parentElement.parentElement;
+                if (id > 0) {
+                    $.ajax({
+                        url: "/FestivalBanner/deletBanner/" + id,
+                        type: "POST",
+                        success: function (data) {
+                            if (data.msg == 'Done') {
+                                row.remove();
+                                alert("تم حذف البنر بنجاح")
+                            } else {
+                                alert("يرجى المحاوله مره اخرى")
+                            }
+                        }
+                    })
+                }
+            }
+        }      
+    </script>
+}

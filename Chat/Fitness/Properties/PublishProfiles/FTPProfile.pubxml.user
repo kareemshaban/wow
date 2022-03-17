@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbjML56n2m0eUHN2ZjogcTwAAAAACAAAAAAAQZgAAAAEAACAAAAAKiAksDkcqkV+UXlJumC81ekXgrHYuMe8uqorN0s0PowAAAAAOgAAAAAIAACAAAAAZTD2X2ORRW2hZKe/p1s/fVxURfj4ulm2QmmkUQCM+IiAAAABD0FqxPE1xJKWIfPN1xQUxq3RVcJAo1vBSJEdflRTPQEAAAABKHT44aDK61F7qLcdvoxlS6E6pC/8cmxaKRoQv79yqfp7JZbquWyV4KcYwskI+D8QxcAkZBRloNqvVkX+KpKx1</EncryptedPassword>
+    <_PublishTargetUrl>ftp://ftp.site4now.net/fit</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>07/13/2020 08:18:01</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>12/15/2020 08:04:59</publishTime>
+    </File>
+    <File Include="Automatonymous.dll">
+      <publishTime>10/25/2020 15:07:38</publishTime>
+    </File>
+    <File Include="Castle.Core.dll">
+      <publishTime>10/10/2017 08:13:52</publishTime>
+    </File>
+    <File Include="Chat.deps.json">
+      <publishTime>12/15/2020 08:56:04</publishTime>
+    </File>
+    <File Include="Chat.dll">
+      <publishTime>12/15/2020 08:55:55</publishTime>
+    </File>
+    <File Include="Chat.pdb">
+      <publishTime>12/15/2020 08:55:55</publishTime>
+    </File>
+    <File Include="Chat.runtimeconfig.json">
+      <publishTime>11/24/2020 00:17:07</publishTime>
+    </File>
+    <File Include="Chat.Views.dll">
+      <publishTime>12/15/2020 08:55:57</publishTime>
+    </File>
+    <File Include="Chat.Views.pdb">
+      <publishTime>12/15/2020 08:55:57</publishTime>
+    </File>
+    <File Include="dotnet-aspnet-codegenerator-design.dll">
+      <publishTime>03/02/2019 19:51:38</publishTime>
+    </File>
+    <File Include="GreenPipes.dll">
+      <publishTime>06/27/2020 16:52:22</publishTime>
+    </File>
+    <File Include="libman.json">
+      <publishTime>07/15/2020 21:39:26</publishTime>
+    </File>
+    <File Include="MassTransit.dll">
+      <publishTime>10/25/2020 16:05:02</publishTime>
+    </File>
+    <File Include="Microsoft.AspNet.SignalR.Core.dll">
+      <publishTime>04/03/2019 00:30:56</publishTime>
+    </File>
+    <File Include="Microsoft.Bcl.AsyncInterfaces.dll">
+      <publishTime>04/14/2020 22:38:32</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.CSharp.Workspaces.dll">
+      <publishTime>04/30/2018 16:29:02</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.Workspaces.dll">
+      <publishTime>04/30/2018 16:29:04</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Proxies.dll">
+      <publishTime>06/07/2018 00:26:58</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll">
+      <publishTime>03/02/2019 19:51:20</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Core.dll">
+      <publishTime>03/02/2019 19:51:30</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.dll">
+      <publishTime>03/02/2019 19:51:32</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll">
+      <publishTime>03/02/2019 19:51:30</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll">
+      <publishTime>03/02/2019 19:51:26</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll">
+      <publishTime>03/02/2019 19:51:22</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll">
+      <publishTime>03/02/2019 19:51:34</publishTime>
+    </File>
+    <File Include="NewId.dll">
+      <publishTime>07/17/2019 18:22:16</publishTime>
+    </File>
+    <File Include="NuGet.Frameworks.dll">
+      <publishTime>04/24/2018 21:27:10</publishTime>
+    </File>
+    <File Include="System.Composition.AttributedModel.dll">
+      <publishTime>11/05/2016 04:55:42</publishTime>
+    </File>
+    <File Include="System.Composition.Convention.dll">
+      <publishTime>11/05/2016 04:55:42</publishTime>
+    </File>
+    <File Include="System.Composition.Hosting.dll">
+      <publishTime>11/05/2016 04:55:42</publishTime>
+    </File>
+    <File Include="System.Composition.Runtime.dll">
+      <publishTime>11/05/2016 04:55:44</publishTime>
+    </File>
+    <File Include="System.Composition.TypedParts.dll">
+      <publishTime>11/05/2016 04:55:46</publishTime>
+    </File>
+    <File Include="System.Diagnostics.DiagnosticSource.dll">
+      <publishTime>04/14/2020 22:48:06</publishTime>
+    </File>
+    <File Include="System.Threading.Channels.dll">
+      <publishTime>04/14/2020 22:39:06</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>12/15/2020 08:56:05</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/admin.css">
+      <publishTime>11/02/2019 09:54:26</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>07/13/2020 08:26:00</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

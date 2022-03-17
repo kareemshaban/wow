@@ -1,0 +1,248 @@
+﻿@model MainBanner
+@{
+    ViewData["Title"] = "تعديل البانر";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>تعديل البانر</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left"></i></li>
+                    <li><i class="view-html fa fa-code"></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="hidden" value="@Model.Id" name="Id" />
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold">الحركه</label>
+                            <input type="text" name="actions" class="form-control" value="@Model.actions" />
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label class="control-label" style="font-weight:bold">الصوره  الاولى. مطلوبه</label>                              
+                                <input type="file" name="Img1" id="Img1" class="form-control" />
+                                <img id="Img1Show" src="~/MainBanner/@Model.Img1" class="thumbnail" style="width:100%;margin-top: 5px;height: 214px;" />
+                            </div>
+                            <div class="col-6">
+                                <label class="control-label" style="font-weight:bold">اختيارى</label>
+                                <input type="file" name="Img2" id="Img2" class="form-control" />
+                                <img id="Img2Show" src="~/MainBanner/@Model.Img2" class="thumbnail" style="width:100%;margin-top: 5px;height: 214px;" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label class="control-label" style="font-weight:bold">اختيارى</label>
+                                <input type="file" name="Img3" id="Img3" class="form-control" />
+                                <img id="Img3Show" src="~/MainBanner/@Model.Img3" class="thumbnail" style="width:100%;margin-top: 5px;height: 214px;" />
+                            </div>
+                            <div class="col-6">
+                                <label class="control-label" style="font-weight:bold">اختيارى</label>
+                                <input type="file" name="Img4" id="Img4" class="form-control" />
+                                <img id="Img4Show" src="~/MainBanner/@Model.Img4" class="thumbnail" style="width:100%;margin-top: 5px;height: 214px;" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" id="btnSave" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="file" name="MainImage" id="MainImage" class="form-control" />
+                        <img id="MainImageShow" src="~/MainBanner/@Model.MainImage" class="thumbnail" style="width:100%;margin-top: 5px;height: 214px;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#MainImage").change(function () {
+                var img = $("#MainImage").get(0).files[0];
+                if (img != "") {
+                    $("#btnSave").css("display", "block");
+                    //
+                    var fileName = img.name;
+                    var _index = fileName.lastIndexOf('.') + 1
+                    var extensionImg = fileName.substring(_index);
+                    var ValidExtension = ['JPG', 'jpg', 'jpeg', 'png', 'PNG', 'GIF', 'gif', 'WEBP', 'TIFF', 'PSD', 'RAW', 'BMP', 'HEIF', 'INDD', 'jpeg 2000', 'JPEG 2000'];
+                    if ($.inArray(extensionImg, ValidExtension) == -1) {
+                        alert('الملف المرفوع يجب ان يكون صورة');
+                        $("#MainImage").val('')
+                        $("#MainImageShow").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>Size
+                    var fileSize = img.size / 1024 / 1024;
+                    if (fileSize > 10) {
+                        alert("الصوره يجب ان لا تزيد عن 10  ميجا");
+                        $("#MainImage").val('')
+                        $("#MainImageShow").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>>>Show
+                    var reader = new FileReader;
+                    var image = new Image;
+                    reader.readAsDataURL(img);
+                    reader.onload = function (_file) {
+                        image.src = _file.target.result;
+                        image.onload = function () {
+                            $("#MainImageShow").attr('src', _file.target.result);
+                            $("#MainImageShow").css("display", "block");
+                        }
+                    }
+                }
+            })
+            $("#Img1").change(function () {
+                var img = $("#Img1").get(0).files[0];
+                if (img != "") {
+                    var fileName = img.name;
+                    var _index = fileName.lastIndexOf('.') + 1
+                    var extensionImg = fileName.substring(_index);
+                    var ValidExtension = ['JPG', 'jpg', 'jpeg', 'png', 'PNG', 'GIF', 'gif', 'WEBP', 'TIFF', 'PSD', 'RAW', 'BMP', 'HEIF', 'INDD', 'jpeg 2000', 'JPEG 2000'];
+                    if ($.inArray(extensionImg, ValidExtension) == -1) {
+                        alert('الملف المرفوع يجب ان يكون صورة');
+                        $("#Img1").val('')
+                        $("#Img1Show").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>Size
+                    var fileSize = img.size / 1024 / 1024;
+                    if (fileSize > 10) {
+                        alert("الصوره يجب ان لا تزيد عن 10  ميجا");
+                        $("#Img1").val('')
+                        $("#Img1Show").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>>>Show
+                    var reader = new FileReader;
+                    var image = new Image;
+                    reader.readAsDataURL(img);
+                    reader.onload = function (_file) {
+                        image.src = _file.target.result;
+                        image.onload = function () {
+                            $("#Img1Show").attr('src', _file.target.result);
+                            $("#Img1Show").css("display", "block");
+                            $("#ima1Error").css("display", "none");
+                        }
+                    }
+                }
+            })
+            $("#Img2").change(function () {
+                var img = $("#Img2").get(0).files[0];
+                if (img != "") {
+                    var fileName = img.name;
+                    var _index = fileName.lastIndexOf('.') + 1
+                    var extensionImg = fileName.substring(_index);
+                    var ValidExtension = ['JPG', 'jpg', 'jpeg', 'png', 'PNG', 'GIF', 'gif', 'WEBP', 'TIFF', 'PSD', 'RAW', 'BMP', 'HEIF', 'INDD', 'jpeg 2000', 'JPEG 2000'];
+                    if ($.inArray(extensionImg, ValidExtension) == -1) {
+                        alert('الملف المرفوع يجب ان يكون صورة');
+                        $("#Img2").val('')
+                        $("#Img2Show").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>Size
+                    var fileSize = img.size / 1024 / 1024;
+                    if (fileSize > 10) {
+                        alert("الصوره يجب ان لا تزيد عن 10  ميجا");
+                        $("#Img2").val('')
+                        $("#Img2Show").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>>>Show
+                    var reader = new FileReader;
+                    var image = new Image;
+                    reader.readAsDataURL(img);
+                    reader.onload = function (_file) {
+                        image.src = _file.target.result;
+                        image.onload = function () {
+                            $("#Img2Show").attr('src', _file.target.result);
+                            $("#Img2Show").css("display", "block");
+                        }
+                    }
+                }
+            })
+            $("#Img3").change(function () {
+                var img = $("#Img3").get(0).files[0];
+                if (img != "") {
+                    var fileName = img.name;
+                    var _index = fileName.lastIndexOf('.') + 1
+                    var extensionImg = fileName.substring(_index);
+                    var ValidExtension = ['JPG', 'jpg', 'jpeg', 'png', 'PNG', 'GIF', 'gif', 'WEBP', 'TIFF', 'PSD', 'RAW', 'BMP', 'HEIF', 'INDD', 'jpeg 2000', 'JPEG 2000'];
+                    if ($.inArray(extensionImg, ValidExtension) == -1) {
+                        alert('الملف المرفوع يجب ان يكون صورة');
+                        $("#Img3").val('')
+                        $("#Img3Show").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>Size
+                    var fileSize = img.size / 1024 / 1024;
+                    if (fileSize > 10) {
+                        alert("الصوره يجب ان لا تزيد عن 10  ميجا");
+                        $("#Img3").val('')
+                        $("#Img3Show").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>>>Show
+                    var reader = new FileReader;
+                    var image = new Image;
+                    reader.readAsDataURL(img);
+                    reader.onload = function (_file) {
+                        image.src = _file.target.result;
+                        image.onload = function () {
+                            $("#Img3Show").attr('src', _file.target.result);
+                            $("#Img3Show").css("display", "block");
+                        }
+                    }
+                }
+            })
+            $("#Img4").change(function () {
+                var img = $("#Img4").get(0).files[0];
+                if (img != "") {
+                    var fileName = img.name;
+                    var _index = fileName.lastIndexOf('.') + 1
+                    var extensionImg = fileName.substring(_index);
+                    var ValidExtension = ['JPG', 'jpg', 'jpeg', 'png', 'PNG', 'GIF', 'gif', 'WEBP', 'TIFF', 'PSD', 'RAW', 'BMP', 'HEIF', 'INDD', 'jpeg 2000', 'JPEG 2000'];
+                    if ($.inArray(extensionImg, ValidExtension) == -1) {
+                        alert('الملف المرفوع يجب ان يكون صورة');
+                        $("#Img4").val('')
+                        $("#Img4Show").css("display", "none");
+                        return false;
+                    }
+                    var fileSize = img.size / 1024 / 1024;
+                    if (fileSize > 10) {
+                        alert("الصوره يجب ان لا تزيد عن 10  ميجا");
+                        $("#Img4").val('')
+                        $("#Img4Show").css("display", "none");
+                        return false;
+                    }
+                    var reader = new FileReader;
+                    var image = new Image;
+                    reader.readAsDataURL(img);
+                    reader.onload = function (_file) {
+                        image.src = _file.target.result;
+                        image.onload = function () {
+                            $("#Img4Show").attr('src', _file.target.result);
+                            $("#Img4Show").css("display", "block");
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+}
+
+
+

@@ -1,0 +1,114 @@
+﻿@model List<Fitness.Models.User2UserMsg>
+@{
+    ViewData["Title"] = "فض النزاع";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link href="~/assets/css/chatStylee.css" rel="stylesheet" />
+}
+
+<div class="col-sm-12" id="chatingArea" style="margin:0px -15px;padding:0px">
+    <div id="chatpop" style="color: #fff;text-align: center;border: none;font-size: 22px;cursor: pointer;">
+        <div class="">
+            <div class="chat" style="height: 85vh;">
+                <form method="get" action="ConflictResolution">
+                    <div class="chat-header">
+
+                        <div class="profile" style="padding:0px 10px">
+                            <div class="left" style="text-align:right">
+                                <input type="text" style="width:30%" class="form-control" placeholder="معرف المستخدم الاول" name="user1" />
+                            </div>
+                            <div class="right">
+                                <input type="text" style="display:inline;width:70%" class="form-control" placeholder="معرف المستخدم الثانى" name="user2" />
+                                <input type="submit" class="btn btn-success" value="بحث" />
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <div class="chat-box">
+                    @foreach (var item in Model)
+                    {
+                        if (item.SenderId == ViewBag.rightBar)
+                        {
+                            <div class="chat-l">
+                                <div class="mess">
+                                    <p style="color:#626060">
+                                        @item.Msg
+                                    </p>
+                                    <div class="check">
+                                        <span style="color: #363535; font-weight: bold; padding-left: 6px;">@item.Sender.FulName</span>
+                                    </div>
+                                    <div class="check">
+                                        <span>@item.SendDate</span>
+                                    </div>
+                                </div>
+                                <div class="sp"></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="chat-r">
+                                <div class="sp"></div>
+                                <div class="mess mess-r">
+                                    <p style="color:#626060">
+                                        @item.Msg
+                                    </p>
+                                    <div class="check">
+                                        <span style="color: #363535; font-weight: bold; padding-left: 6px;">@item.Sender.FulName</span>
+                                    </div>
+                                    <div class="check">
+                                        <span>@item.SendDate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                </div>
+
+                <div class="chat-footer">                        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{    
+        <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+        <script>
+        $(document).ready(function () {
+              const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+            connection.on("MsgFromUser", function (SenderName, Msg, SenderId,date) {
+                //Check if adminstration open chat  between  this  user
+                if ('@ViewBag.userchatId'== SenderId) {
+                    var msgData = '<div class="chat-l"><div class="mess"><p style="color:#626060">' + Msg + '</p><div class="check"><span>' + date + '</span></div></div><div class="sp"></div></div>';
+                    $(".chat-box").append(msgData);
+                    $("#msg").val('');
+                    chatBody.scrollBy(0, 405250)
+                }              
+            })
+            connection.start();
+            $("#btnSend").click(function () {
+                var msg = $("#msg").val();
+                if (msg == "") {
+                    alert("يرجى ادخال رساله"); return;
+                }
+                var userId = '@ViewBag.userchatId';
+                if (userId == "") {
+                    location.reload(); return;
+                }
+                var adminstrationChat = '@ViewBag.adminstrationChat';
+                connection.invoke('SendMsgByAdminstration', msg, userId, adminstrationChat).then(function (data) {
+                    if (data.message == "Done") {
+                        var msgData = '<div class="chat-l"><div class="mess"><p style="color:#626060">' + msg + '</p><div class="check"><span>' + data.date + '</span></div></div><div class="sp"></div></div>';
+                        $(".chat-box").append(msgData);
+                        $("#msg").val('');
+                        chatBody.scrollBy(0, 405250)
+                    } else {
+                        alert("هناك خطأ ما .. يرجى التحقق من الانترنت واعاده المحاولة");
+                    }
+                })
+            })
+		var chatBody = document.getElementsByClassName('chat-box')[0]
+		chatBody.scrollBy(0, 200000)
+	})
+        </script>
+}

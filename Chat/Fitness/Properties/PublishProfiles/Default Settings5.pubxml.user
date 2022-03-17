@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAk+L07hKPdUyiSkd3RzEgMQAAAAACAAAAAAAQZgAAAAEAACAAAADx0UbpB0tLmfezdU17XkQpp5+fM5CjRtxq5zDihwnP5AAAAAAOgAAAAAIAACAAAAB6Uuj1a87GoCHYV+kGvmWJYZyGfzTUKt8ywAZ5ZVwM1yAAAAAfMo275xkwJhLNKYZR0KkcSzTeU00BE2grueUI0obxukAAAABGTgH6KP7F67d8HD96Moa5djcNaD1dF8ragW1gSEAoelHcRxX8mY2I8THcfIfdVHol7bdhmW9fCjLnF2qnqd3N</EncryptedPassword>
+    <History>False|2021-10-31T09:01:54.9602124Z;True|2021-10-30T17:26:05.1275816+02:00;False|2021-10-30T17:05:29.2816981+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="FitnessDbContextConnection">
+      <Value>Data Source=SQL5085.site4now.net%3bInitial Catalog=db_a6454a_folanewdb%3bUser Id=db_a6454a_folanewdb_admin%3bPassword= Mostafa13185</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

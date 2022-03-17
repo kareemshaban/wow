@@ -1,0 +1,84 @@
+﻿@model List<Country>
+@{
+    ViewData["Title"] = "الدول";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>الفئات</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th style="width:40%">الاسم</th>
+                        <th style="width:30%">الصوره</th>
+                        <th style="width:30%"><a class="btn btn-success btn-block" href="/Country/Create"><i class="fa fa-plus"></i></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Country item in Model)
+                    {
+                    <tr>
+                        <td>@item.Name  </td>
+                        <td style="text-align:center"><img src="~/CountryImgs/@item.ImgUrl" alt="" class="img-80 thumbnail img-fluid blur-up lazyloaded"></td>
+                        <td class="text-center">
+                            <a class="btn btn-secondary" href="/Country/Edit/@item.Id"><i class="fa fa-pencil"></i></a>
+                            <button class="btn btn-primary" id="@item.Id"><i class="fa fa-remove"></i></button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@*<button class="btn btn-success Send">Send message</button>*@
+@section scripts{
+    <!-- Datatable js-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+@*<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>*@
+<script>
+        $(document).ready(function () {
+            @*const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+            connection.on("ReceiveMessage", function (fromUser, message) {
+                var msg = fromUser + " : " + message;
+                var li = document.createElement("li");
+                li.textContent = msg;
+                $("#msgs").append(li);
+            })
+            connection.start().then(function () {connection.invoke('SendMsgAdminstration', "c568397c", "الرساله هنا  من العميل bbbb", '', null, "الاخ الجديد").then(function () { connection.invoke('GetConnectionId','@User.Identity.Name').then(function (connectionId) {}); })
+            });
+            //$(".Send").click(function () {
+            //    connection.invoke('SendMsg', "RecieverId", "SenderId", "Msg", "fileName", null)
+
+            //})*@
+            $(".btn-primary").click(function () {
+                debugger;
+                if (confirm("هل انت متاكد من ذلك")) {
+                    var btn = this;
+                    var id = btn.id;
+                    var _row = btn.parentElement.parentElement;
+                    if (id > 0) {
+                        $.ajax({
+                            url: "/Category/Delete/" + id,
+                            type: "POST",
+                            success: function (data) {
+                                if (data.msg == 'Done') {
+                                    _row.remove();
+                                } else {
+                                    alert("يرجى المحاوله مره اخرى")
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        })
+</script>
+}

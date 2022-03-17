@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Post>
+@{
+    ViewData["Title"] = "كل البوستات";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>البوستات المنشوره</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table" id="productTbl">
+                <thead class="text-center">
+                    <tr>
+                        <th style="width:20%">
+                            <label>اسم المستخدم</label>
+                        </th>
+                        <th style="width:35%">
+                            <label>المحتوى</label>
+                        </th>
+                        <th style="width:10%">
+                            <label>تاريخ النشر</label>
+                        </th>
+                        <th style="width:15%">
+                            <label>المرفقات</label>
+                        </th>
+                        <th style="width:20%">الادوات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderByDescending(a=>a.publishDate))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ApplicationUser.FulName)
+                            </td>
+                            <td>
+                                @{
+                                    if (!string.IsNullOrEmpty(item.content) && item.content!= "undefined")
+                                    {
+                                        if (item.content.Length > 100)
+                                        {
+                                            <span>@item.content.Substring(0, 99) </span>
+
+                                        }
+                                        else
+                                        {
+                                            <span>@item.content</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red">لا يوجد محتوى</span>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <span>@item.publishDate.ToShortDateString()</span>
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.ImgUrl))
+                                {
+                                    <div style="background-color: white; padding: 2px;border: 1px solid #d0cfcf;border-radius: 10px;">
+                                        <img src="~/PostsImage/@item.ImgUrl" class="thumbnail" style="border: 1px solid #999;border-radius: 10px;width:100% ;height:70px" />
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-success" target="_blank" href="/ShowPosts/Details/@item.Id">عرض</a>
+                                <button class="btn btn-primary btnDelete" id="@item.Id">حذف</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+@section scripts{
+    <!-- Datatable js-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#productTbl').DataTable()
+        });
+        $(".btnDelete").click(function () {
+            var btn = this;
+            $(btn).css("display", "none")
+            var Id = btn.id;
+            if (Id > 0) {
+                if (confirm("هل انت متاكد ؟")) {
+                    //Ajax Code Start
+                    $.ajax({
+                        url: "/ShowPosts/Delete?postId=" + Id,
+                        type: "POST",
+                        success: function (data) {
+                            if (data.msg == 'Done') {
+                                var clickedRow = btn.parentElement.parentElement;
+                                clickedRow.remove();
+                                alert("تك الحذف بنجاح")
+                            } else {
+                                alert("يرجى المحاوله مره اخرى")
+                                $(btn).css("display", "block")
+                            }
+                        }
+                    })
+                    //Ajax Code End
+                }
+            }
+        })
+    </script>
+}
+

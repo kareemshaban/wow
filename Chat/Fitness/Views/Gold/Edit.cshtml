@@ -1,0 +1,45 @@
+﻿@model Gold
+@{
+    ViewData["Title"] = "تعديل الدهب";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>تعديل الدهب</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left"></i></li>
+                    <li><i class="view-html fa fa-code"></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" value="@Model.Id" name="Id" />
+                        <input type="hidden" value="@Model.CategoryId" name="CategoryId" />
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold"> الاسم</label>
+                            <input type="number" name="ProductName" class="form-control" value="@Model.ProductName" />
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold">السعر</label>
+                            <input type="text" name="Price" class="form-control" value="@Model.Price" />
+                        </div>
+                        <div class="form-group row">
+                            <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" id="btnSave" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

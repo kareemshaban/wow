@@ -1,0 +1,180 @@
+﻿@model List<Fitness.Controllers.usersCls>
+@{
+    ViewData["Title"] = "الاداره";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>الاداره</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th style="width:23%;text-align:center">اسم المستخدم</th>
+                        <th style="width:10%;text-align:center">المعرف </th>
+                        <th style="width:40%;text-align:center">الصلاحيات</th>
+                        <th style="width:27%;text-align:center"><a class="btn btn-success btn-block" href="/Adminstration/createUser"><i class="fa fa-plus"></i></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Fitness.Controllers.usersCls item in Model)
+                    {
+                        <tr>
+                            <td>@item.FullName</td>
+                            <td style="text-align:center"> @item.UserId</td>
+                            <td style="text-align:center">
+                                @foreach (var role in item.UserRoles)
+                                {
+                                    if (role == "AddUsers")
+                                    {
+                                        <span style="border-left: 1px solid #a9a9a9;padding-left:5px">اضافه مستخدمين</span>
+                                    }
+                                    else if (role == "ShowUsersChat")
+                                    {
+                                        <span style="border-left: 1px solid #a9a9a9;padding-left:5px">معاينه الشات</span>
+                                    }
+                                    else if (role == "AdminstrationChat")
+                                    {
+                                        <span style="border-left:1px solid #a9a9a9;padding-left:5px">شات الاداره</span>
+                                    }
+                                    else if (role == "ChargingAgency")
+                                    {
+                                        <span style="border-left:1px solid #a9a9a9;padding-left:5px">تعديل وكالات الشحن</span>
+                                    }
+                                }
+                            </td>
+                            <td>                               
+                                    <button class="btn btn-secondary addroles" id="@item.UserName">اضافه صلاحيات</button>                               
+                                <button class="btn btn-primary blockUser" id="@item.UserName">حظر</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title f-w-600" id="exampleModalLabel">أضافه صلاحيات للمستخدم</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation">
+                    <div class="form">
+                        <div class="form-group">
+                            <input type="hidden" id="userNameData" />
+                            <label for="validationCustom01" class="mb-1">الصلاحيات:</label>
+                            <select id="roleName" class="form-control">
+                                <option value="">يرجى اختيار صلاحيه للمستخدم</option>
+                                @foreach (var item in ViewBag.roles)
+                                {
+                                    if (item.Name == "AddUsers")
+                                    {
+                                        <option value="@item.Name">اضافه مستخدمين</option>
+                                    }
+                                    else if (item.Name == "ShowUsersChat")
+                                    {
+                                        <option value="@item.Name">معاينه الشات</option>
+                                    }
+                                    else if (item.Name == "AdminstrationChat")
+                                    {
+                                        <option value="@item.Name">شات الاداره</option>
+                                    }
+                                    else if (item.Name == "ChargingAgency")
+                                    {
+                                        <option value="@item.Name">تعديل وكالات الشحن</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary " id="btnSaveAddRole" type="button">حفظ التغييرات</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">اغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <!-- Datatable js-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+    <script src="~/assets/js/notify.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnSaveAddRole").click(function () {
+                debugger;
+                var roleName = $("#roleName").val();
+                var _userName = $("#userNameData").val();
+                if (roleName != "") {
+                    $("#roleName").css("border", "1px solid #cccccc")
+                } else { $("#roleName").css("border", "1px solid red"); $("#roleName").select(); return; }
+                $.ajax({
+                    url: "/Adminstration/AddRole",
+                    type: "POST",
+                    data: { "roleName": roleName, "UserName": _userName },
+                    success: function (data) {
+                        if (data.msg == 'Done') {
+                            $.notify("تمت اضافه الصلاحيه للمستخدم بنجاح", {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+                            location.reload();
+                        } else {
+                            $.notify(data.alertMsg, {
+                                globalPosition: "top center",
+                                className: "error"
+                            })
+                        }
+                    }
+                })
+            })
+
+            var addroles = document.getElementsByClassName("addroles")
+            for (var e = 0; e < addroles.length; e++) {
+                var addrole = addroles[e];
+                addrole.addEventListener('click', function (event) {
+                    var btn = event.target;
+                    var userName = btn.id;
+                    if (userName != "") {
+                        $("#userNameData").val(userName);
+                        $("#exampleModal").modal('show');
+                    }
+                })
+            }
+            var CheckBtns = document.getElementsByClassName("blockUser")
+            for (var e = 0; e < CheckBtns.length; e++) {
+                var CheckBtn = CheckBtns[e];
+                CheckBtn.addEventListener('click', function (event) {
+                    var btn = event.target;
+                    var userName = btn.id;
+                    var clickedRow = btn.parentElement.parentElement;
+                    $.ajax({
+                        url: "/Adminstration/block",
+                        type: "POST",
+                        data: { "UserName": userName },
+                        success: function (data) {
+                            if (data.msg == 'Done') {
+                                $.notify(" تمت حظر المستخدم بنجاح ", { globalPosition: "top center", className: "success" })
+                                $(clickedRow).remove();
+                            } else {
+                                $.notify("يرجى المحاوله مره اخرى", { globalPosition: "top center", className: "error" })
+                            }
+                        }
+                    })
+                })
+            }
+        })
+    </script>
+}

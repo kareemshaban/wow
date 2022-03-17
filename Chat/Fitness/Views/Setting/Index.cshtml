@@ -1,0 +1,225 @@
+﻿@model SiteSetting
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>الاعدادات </h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left"></i></li>
+                    <li><i class="view-html fa fa-code"></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (ViewBag.data != null)
+                    {
+                        <input readonly class="alert alert-danger" value="@ViewBag.TotalStudents " />
+                    }
+                    <label>Total Students:</label>  @ViewBag.TotalStudents
+                    <form asp-action="ResetChatRoomBalance" method="post">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <input type="submit" value="Reset chatroom balance" class="btn btn-secondary btn-block" style="margin-top:25px" />
+
+                            </div>
+
+                        </div>
+                    </form>
+                    <form asp-action="ConvertGift2Diamond" method="post">
+                        <input type="hidden" value="@Model.Id" name="id" />
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <label class="control-label" style="font-weight:bold;float:right">نسبه تحويل الهديه لماس - <span style="color:red;font-size:12px">يجب ان يكون كرقم وليس نسبه</span> </label>
+                                <input type="text" name="ConvertGift2Diamond" id="ConvertGift2DiamondId" max="100.00" maxlength="4" class="form-control" value="@Model.ConvertGift2Diamond" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" style="margin-top:25px" />
+
+                            </div>
+
+                        </div>
+                    </form>
+                    <form asp-action="Buy100Diamond" method="post">
+                        <input type="hidden" value="@Model.Id" name="id" />
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <label class="control-label" style="font-weight:bold;float:right">سعر الشراء لكل 100 ماسه </label>
+                                <input type="text" step="0.1" name="Buy100Diamond" class="form-control" value="@Model.Buy100Diamond" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" style="margin-top:25px" />
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="SavePostPrice" method="post">
+                        <input type="hidden" value="@Model.Id" name="id" />
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <label class="control-label" style="font-weight:bold;float:right">سعر البوست </label>
+                                <input type="text" step="0.5" name="PostPrice" class="form-control" value="@Model.PostPrice" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" style="margin-top:25px" />
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="SaveUserIdPrice" method="post">
+                        <input type="hidden" value="@Model.Id" name="id" />
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <label class="control-label" style="font-weight:bold;float:right"> سعر معرف المستخدم -Id </label>
+                                <input type="text" step="0.1" name="UserIdPrice" class="form-control" value="@Model.UserIdPrice" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" style="margin-top:25px" />
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="SaveCustomeBakgroundPrice" method="post">
+                        <input type="hidden" value="@Model.Id" name="id" />
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <label class="control-label" style="font-weight:bold;float:right">سعر الخلفيه</label>
+                                <input type="text" step="0.1" name="CustomeBakgroundPrice" class="form-control" value="@Model.CustomBackgroundPrice" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" style="margin-top:25px" />
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="SaveFestivalPrice" method="post">
+                        <input type="hidden" value="@Model.Id" name="id" />
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <label class="control-label" style="font-weight:bold;float:right">سعر البنر لكل يوم</label>
+                                <input type="text" step="0.1" name="FestivalBannerPrice" class="form-control" value="@Model.FestivalBannerPrice" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" style="margin-top:25px" />
+                            </div>
+                        </div>
+                    </form>
+
+
+                    @*<div style="border-top:1px solid #eee;margin-top:30px;padding-top:20px">
+            <div class="form-group row">
+                <div class="col-md-9">
+                    <label class="control-label" style="font-weight:bold;float:right">معرف المستخدم المراد البحث عنه</label>
+                    <input type="number" id="UserIdSeaching" max="100.00" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary btn-block" style="margin-top:25px" id="search">بحث عن المعرف</button>
+                </div>
+            </div>
+            <div class="form-group row" style="display:none" id="SearchBook">
+                <div class="form-group row" style="padding: 9px 15px;border-top: 0.5px dashed #bff9f9">
+                    <div class="col-md-6">
+                        <label class="control-label" style="font-weight:bold;float:right;margin-right:15px">معرف المستخدم الحالى</label>
+                        <input type="number" id="UserIdNow" max="100.00" class="form-control" style="border-radius:25px"/>
+                    </div>
+                    <div class="col-md-3">
+                        <form asp-action="PayId" method="post">
+
+                            <input class="btn btn-secondary btn-block" id="FreePay" style="margin-top:26px;border-radius:25px" value="شراء مجانى"/>
+                            </form>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-secondary btn-block" id="Pay" style="margin-top:26px;border-radius:25px">شراء وخصم القيمه</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).click(function () {
+            //$("#FreePay").click(function (e) {
+            //    e.preventDefault();
+            //    var userId = $("#UserIdSeaching").val();
+            //    var UserIdNow = $("#UserIdNow").val();
+            //    if (UserIdNow != "" && UserIdNow != 0 && userId != 0 && isNaN(userId) == false) {
+            //        $("#FreePay").css("display","none")
+            //        $.ajax({
+            //            url: "/Setting/PayId",
+            //            type: "POST",
+            //            data: { "IdNow": UserIdNow, "UserId": userId, "IsFree": true },
+            //            success: function (data) {
+            //                if (data.msg == 'Done') {
+            //                    alert("تم الحجز بنجاح");
+            //                    $("#FreePay").css("display", "block");
+            //                    $("#Pay").css("display", "none");
+            //                } else {
+            //                    alert(data.msg)
+            //                    $("#FreePay").css("display", "block")
+            //                }
+            //            }
+            //        })
+            //    }
+            //});
+            //$("#Pay").click(function (e) {
+            //    e.preventDefault();
+            //    var userId = $("#UserIdSeaching").val();
+            //    var UserIdNow = $("#UserIdNow").val();
+            //    if (UserIdNow != "" && UserIdNow != 0 && userId != 0 && isNaN(userId) == false) {
+            //        $("#Pay").css("display","none")
+            //        $.ajax({
+            //            url: "/Setting/PayId",
+            //            type: "POST",
+            //            data: { "IdNow": UserIdNow, "UserId": userId, "IsFree": false },
+            //            success: function (data) {
+            //                if (data.msg == 'Done') {
+            //                    alert("تم الحجز بنجاح");
+            //                    $("#Pay").css("display", "block");
+            //                } else {
+            //                    alert(data.msg)
+            //                    $("#Pay").css("display", "block");
+            //                }
+            //            }
+            //        })
+            //    }
+            //});
+            //$("#search").click(function (e) {
+            //    e.preventDefault();
+            //    var userId = $("#UserIdSeaching").val();
+            //    if (userId != 0 && isNaN(userId) == false) {
+            //        $("#search").css("display", "none")
+            //        $.ajax({
+            //            url: "/Setting/SearchUserId",
+            //            type: "POST",
+            //            data: { "Id": userId },
+            //            success: function (data) {
+            //                if (data.msg == 'Done') {
+            //                    $("#search").css("display", "block")
+            //                    $("#SearchBook").css("display", "block");
+            //                } else {
+            //                    alert("هذا المعرف مستخدم بالفعل")
+            //                    $("#search").css("display", "block")
+            //                }
+            //            }
+            //        })
+            //    }
+            //});
+            $("#ConvertGift2DiamondId").keyup(function () {
+                var value = parseFloat($("#ConvertGift2DiamondId").val());
+                if (value > 100) {
+                    $("#ConvertGift2DiamondId").val('100')
+                }
+            })
+        })
+    </script>
+}
+

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="wowapplication-001-subsite2" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^I:\\ionic\ Work\\ControlPanel\\currnet\ work\ versions\\WoW\ Copy\\WowApplication\\Chat\\Fitness\\obj\\Debug\\netcoreapp2\.1\\PubTmp\\Out\\$" />
+  </parameter>
+</parameters>

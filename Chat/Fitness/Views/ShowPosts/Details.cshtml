@@ -1,0 +1,43 @@
+﻿@model Post
+@{
+    ViewData["Title"] = "عرض المنشور";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5> تفاصيل المنشور</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;font-weight: bold;">
+                    تاريخ النشر : @Model.publishDate.ToShortDateString()
+                </div>
+                <div class="col-md-12" style="border:1px solid #eee;margin:20px 1px ;padding:20px 2px;border-radius: 10px;text-align: center;font-weight: bold;">
+                    @{ 
+                        if (!string.IsNullOrEmpty(Model.content) && Model.content != "undefined")
+                        {
+                            @Model.content
+                        }
+                        else
+                        {
+                            <span style="color:red">لا يوجد محتوى</span>
+                        }
+                    }
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <div style="background-color: white; padding: 2px;border: 1px solid #d0cfcf;border-radius: 10px;">
+                        <img src="~/PostsImage/@Model.ImgUrl" class="thumbnail" style="border: 1px solid #999;border-radius: 10px;width:100% ;height:230px" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

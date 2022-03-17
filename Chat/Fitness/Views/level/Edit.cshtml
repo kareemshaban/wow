@@ -1,0 +1,95 @@
+﻿@model Level
+@{
+    ViewData["Title"] = "تعديل الصنف";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>تعديل الصنف</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left"></i></li>
+                    <li><i class="view-html fa fa-code"></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="hidden" value="@Model.Id" name="Id" />
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label class="control-label" style="font-weight:bold;float:right">اسم الصنف</label>
+                                <input type="text" name="LevelName" class="form-control" value="@Model.LevelName" />
+                            </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label class="control-label" style="font-weight:bold;float:right">اللون</label>
+                                    <input type="text" name="Color" class="form-control" value="@Model.Color"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label" style="font-weight:bold;float:right">عدد الهدايا المرسله</label>
+                                    <input type="text" name="GiftSendCount" class="form-control" value="@Model.GiftSendCount" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label class="control-label" style="font-weight:bold;float:right">رفع صوره المستوى</label>
+                                    <input type="hidden" value="@Model.ImgUrl" name="ImgUrl" />
+                                    <input type="file" name="Img" id="imgUploader" class="form-control" style="margin-top:25px" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" id="btnSave" />
+                                </div>
+                            </div>
+
+                        </div>
+                    <div class="col-md-4">                       
+                        <img id="imgShow" src="~/LevelImg/@Model.ImgUrl" class="thumbnail" style="width: 302px;margin-top: 30px;height: 261px;border: 1px solid #7d7d7d;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#imgUploader").change(function () {
+                var img = $("#imgUploader").get(0).files[0];
+                if (img != "") {
+                    $("#btnSave").css("display", "block");                   
+                    //>>>>>>Size
+                    var fileSize = img.size / 1024 / 1024;
+                    if (fileSize > 10) {
+                        alert("الصوره يجب ان لا تزيد عن 10  ميجا");
+                        $("#imgUploader").val('')
+                        $("#imgShow").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>>>Show
+                    var reader = new FileReader;
+                    var image = new Image;
+                    reader.readAsDataURL(img);
+                    reader.onload = function (_file) {
+                        image.src = _file.target.result;
+                        image.onload = function () {
+                            $("#imgShow").attr('src', _file.target.result);
+                            $("#imgShow").css("display", "block");
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAk+L07hKPdUyiSkd3RzEgMQAAAAACAAAAAAAQZgAAAAEAACAAAABP6n/ZXTlUtkrnd/Amksn4Ye5bsv5IL7apRBQ8d9xEzAAAAAAOgAAAAAIAACAAAABWvvJSJHknCaXzX9X+9Vd9Wz+wYnbzBH7FONhwWalZ5DAAAADigI3CtwR1td5dCRrHE0awdRMPYVpvwKX+foncJHx6bFB/dIHFICT5+iM5gF5mJ5ZAAAAAHUCdl1hHdLqxmdpR6Byr41OxvRv5WAt29qqQj9NuPxGxJdunfwF76C2EaXngaU036TVfsXzS0C07HgAFcveLxA==</EncryptedPassword>
+    <History>True|2021-11-12T20:43:28.5059282Z;True|2021-11-12T21:57:20.1565985+02:00;True|2021-11-12T21:44:55.6862465+02:00;True|2021-11-12T21:10:29.3647175+02:00;True|2021-11-10T10:58:38.5417195+02:00;True|2021-11-10T00:13:28.0300380+02:00;True|2021-11-09T19:04:51.9575323+02:00;True|2021-11-09T18:51:38.6634735+02:00;True|2021-11-09T18:41:43.0193651+02:00;True|2021-11-09T18:23:59.0832829+02:00;True|2021-11-06T20:38:51.1194853+02:00;True|2021-11-04T19:36:05.1472925+02:00;True|2021-11-04T18:52:28.5168417+02:00;True|2021-10-31T23:45:49.6476028+02:00;True|2021-10-31T23:29:38.1773755+02:00;True|2021-10-31T22:43:30.2438616+02:00;True|2021-10-31T21:20:08.7018471+02:00;True|2021-10-31T12:52:19.3765508+02:00;True|2021-10-31T11:08:30.3456600+02:00;True|2021-10-30T17:49:46.5376458+02:00;True|2021-10-30T17:36:59.8204641+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="FitnessDbContextConnection">
+      <Value>Data Source=SQL5104.site4now.net%3bInitial Catalog=db_a6c612_wownewdb%3bUser Id=db_a6c612_wownewdb_admin%3bPassword=DevStation.wow%403</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

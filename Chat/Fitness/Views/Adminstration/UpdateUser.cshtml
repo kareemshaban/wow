@@ -1,0 +1,165 @@
+﻿@model Fitness.Areas.Identity.Data.ApplicationUser
+@{
+    ViewData["Title"] = "تعديل بيانات  المستخدم";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>تعديل بيانات  المستخدم</h5>
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li><i class="icofont icofont-simple-left"></i></li>
+                    <li><i class="view-html fa fa-code"></i></li>
+                    <li><i class="icofont icofont-maximize full-card"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card"></i></li>
+                    <li><i class="icofont icofont-error close-card"></i></li>
+                </ul>
+            </div>
+        </div>
+        <form asp-action="UpdateUser" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="hidden" value="@Model.Id" name="Id" />
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold">اسم  المستخدم</label>
+                            <input type="text" name="RoomName" class="form-control" value="@Model.FulName" />
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold">الهاتف </label>
+                            <input type="text" name="PhoneNumber" class="form-control" value="@Model.PhoneNumber" />
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold"> تاريخ الانضمام</label>
+                            <input type="text" name="RegisterDate" class="form-control" value="@Model.RegisterDate.ToShortDateString()" />
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold">   الايميل</label>
+                            <input type="text" name="Email" class="form-control" value="@Model.Email" />
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold">   مستوى الهدايا المرسلة</label>
+                            <select class="form-control" name="level" id="level">
+                                @foreach (var item in ViewBag.levels)
+                                {
+                                    <option value="@item.Id">@item.LevelName</option>
+                                }
+                            </select>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="control-label" style="font-weight:bold">   المستويات الاخرى</label>
+                            <select class="form-control" name="OtherLevel" id="OtherLevel">
+                                @foreach (var item in ViewBag.OtherLevel)
+                                {
+                                    <option value="@item.Id">@item.LevelName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <input type="submit" value="حفظ التغييرات" class="btn btn-success btn-block" id="btnSave" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="hidden" value="@Model.ImgUrl" name="ImgUrl" />
+                        <input type="file" name="imgUploader" id="imgUploader" class="form-control" style="margin-top:25px" />
+                        <img id="imgShow" src="~/UsersImage/@Model.ImgUrl" class="thumbnail" style="width:100%;margin-top: 5px;height: 214px;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col-md-6">
+                <form asp-action="UpdateBalance" method="post" style="border-top:1px solid #eee">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" value="@Model.Id" name="Id" />
+                                <div class="form-group row">
+                                    <label class="control-label" style="font-weight:bold"> الرصيد</label>
+                                    <input type="text" name="Balance" class="form-control" value="@ViewBag.walletBalance" />
+                                </div>
+                                <div class="form-group row">
+                                    <input type="submit" value="تعديل الرصيد " class="btn btn-success btn-block" id="btnBalance" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-md-6">
+                <form asp-action="UpdatePassword" method="post" style="border-top:1px solid #eee">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" value="@Model.Id" name="Id" />
+                                <div class="form-group row">
+                                    <label class="control-label" style="font-weight:bold"> الرقم السرى الجديد</label>
+                                    <input type="password" name="NewPass" class="form-control" placeholder="كتابة الرقم السرى الجديد" />
+                                </div>
+                                <div class="form-group row">
+                                    <input type="submit" value="حفظ التغييرات  " class="btn btn-primary btn-block" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div> 
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#level").val("@Model.LevelId")
+
+            $("#OtherLevel").val("@Model.OtherLevelId")
+            $("#imgUploader").change(function () {
+                var img = $("#imgUploader").get(0).files[0];
+                if (img != "") {
+                    $("#btnSave").css("display", "block");
+                    //
+                    var fileName = img.name;
+                    var _index = fileName.lastIndexOf('.') + 1
+                    var extensionImg = fileName.substring(_index);
+                    var ValidExtension = ['JPG', 'jpg', 'jpeg', 'png', 'PNG', 'GIF', 'gif', 'WEBP', 'TIFF', 'PSD', 'RAW', 'BMP', 'HEIF', 'INDD', 'jpeg 2000', 'JPEG 2000'];
+                    if ($.inArray(extensionImg, ValidExtension) == -1) {
+                        alert('الملف المرفوع يجب ان يكون صورة');
+                        $("#imgUploader").val('')
+                        $("#imgShow").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>Size
+                    var fileSize = img.size / 1024 / 1024;
+                    if (fileSize > 10) {
+                        alert("الصوره يجب ان لا تزيد عن 10  ميجا");
+                        $("#imgUploader").val('')
+                        $("#imgShow").css("display", "none");
+                        return false;
+                    }
+                    //>>>>>>>>Show
+                    var reader = new FileReader;
+                    var image = new Image;
+                    reader.readAsDataURL(img);
+                    reader.onload = function (_file) {
+                        image.src = _file.target.result;
+                        image.onload = function () {
+                            $("#imgShow").attr('src', _file.target.result);
+                            $("#imgShow").css("display", "block");
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+}

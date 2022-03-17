@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAk+L07hKPdUyiSkd3RzEgMQAAAAACAAAAAAAQZgAAAAEAACAAAADkx2lcAuqWYIA51kjaflIlnsFcXArm4c9hRjIRv11/7AAAAAAOgAAAAAIAACAAAACP8W5AWCg2AfYjKJ1MhJE2sWiQzFp8zLVhCwNTDLcqADAAAADpPBzicU8XZ6GhpGhv4AgQ3x2ou7E3QHywG56CWl9DVSu6WTIXRU3uUfVjQKxbxb1AAAAAUNpCWJzC+vC63BApYKWmlCiqIk94m0esHNnEgiv8bEHnM9WeRqOmnQJUxb82aCBYrnosNicaDJWJNSGxGcRerw==</EncryptedPassword>
+    <History>False|2021-10-31T08:58:47.9657248Z;True|2021-08-10T00:51:38.6841562+02:00;False|2021-08-10T00:33:26.4883936+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="FitnessDbContextConnection">
+      <Value>Data Source=SQL5104.site4now.net%3bInitial Catalog=db_a6c612_wownewdb%3bUser Id=db_a6c612_wownewdb_admin%3bPassword=DevStation.wow%403</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

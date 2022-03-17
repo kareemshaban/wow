@@ -1,0 +1,70 @@
+﻿@model List<Fitness.Areas.Identity.Data.ApplicationUser>
+@{
+    ViewData["Title"] = "فك الحظر";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>فك الحظر</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th style="width:25%;text-align:center">اسم المستخدم</th>
+                        <th style="width:20%;text-align:center">المعرف </th>
+                        <th style="width:40%;text-align:center">البريد الالكترونى </th>
+                        <th style="width:15%;text-align:center">فك الحظر</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Fitness.Areas.Identity.Data.ApplicationUser item in Model)
+                    {
+                        <tr>
+                            <td>@item.FulName</td>
+                            <td style="text-align:center"> @item.UserId</td>
+                            <td style="text-align:center">@item.Email</td>
+                            <td>
+                                <button class="btn btn-primary blockUser" id="@item.UserName">فك الحظر</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+    <script src="~/assets/js/notify.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var CheckBtns = document.getElementsByClassName("blockUser")
+            for (var e = 0; e < CheckBtns.length; e++) {
+                var CheckBtn = CheckBtns[e];
+                CheckBtn.addEventListener('click', function (event) {
+                    var btn = event.target;
+                    var userName = btn.id;
+                    var clickedRow = btn.parentElement.parentElement;
+                    $.ajax({
+                        url: "/Adminstration/Unblock",
+                        type: "POST",
+                        data: { "UserName": userName },
+                        success: function (data) {
+                            if (data.msg == 'Done') {
+                                $.notify(" تمت فك حظر المستخدم بنجاح ", { globalPosition: "top center", className: "success" })
+                                $(clickedRow).remove();
+                            } else {
+                                $.notify("يرجى المحاوله مره اخرى", { globalPosition: "top center", className: "error" })
+                            }
+                        }
+                    })
+                })
+            }
+        })
+    </script>
+}

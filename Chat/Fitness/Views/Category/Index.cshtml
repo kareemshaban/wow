@@ -1,0 +1,101 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <!-- Datatables css-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/datatables.css">
+}
+
+<div class="col-sm-12" style="margin-top:40px">
+    <div class="card">
+        <div class="card-header">
+            <h5>الفئات</h5>
+        </div>
+        <div class="card-body order-datatable">
+            <table class="display" id="basic-1" style="display:inline-table">
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>الصوره</th>
+                        <th>هدايا ؟</th>
+                        <th><a class="btn btn-success btn-block" href="/Category/Create"><i class="fa fa-plus"></i></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Category item in Model)
+                    {
+                        <tr>
+                            <td>@item.CatName</td>
+                            <td style="text-align:center"><img src="~/categoryImgs/@item.ImgUrl" alt="" class="img-80 thumbnail img-fluid blur-up lazyloaded"></td>
+                            <td>
+                                @if (item.IsGift)
+                                {
+                                    <span style="color:green"><i class="fa fa-check"></i></span>
+                                }
+                                else
+                                {
+                                    <span style="color:red"><i class="fa fa-remove"></i></span>
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-secondary" href="/Category/Edit/@item.Id"><i class="fa fa-pencil"></i></a>
+                                <button class="btn btn-primary" id="@item.Id">حذف</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@*<button class="btn btn-success Send">Send message</button>*@
+@section scripts{
+    <!-- Datatable js-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/custom-basic.js"></script>
+    @*<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>*@
+    <script>
+
+        @*const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+        connection.on("SendRadionNotification", function (fromUser, message) {
+                var msg = fromUser + " : " + message;
+                var li = document.createElement("li");
+                li.textContent = msg;
+                $("#msgs").append(li);
+            })
+        connection.start().then(function () {
+            connection.invoke('SendGiftNotification', "giftName", "roomName", 9, 33, "b63fca81-1541-4f27-8c94-09d9b50172d2 ", "2ab5bbdb-aef4-451f-a0fc-34b4a4b31437", "ssss", "222", "333","../../../assets/images/prof_img.png","55555").then(function () { connection.invoke('GetConnectionId', '@User.Identity.Name').then(function (connectionId) { }); })
+            });*@
+
+            //$(".Send").click(function () {
+            //    connection.invoke('SendMsg', "RecieverId", "SenderId", "Msg", "fileName", null)
+
+            //})
+
+        var btnEdits = document.getElementsByClassName('btn-primary')
+        for (var i = 0; i < btnEdits.length; i++) {
+            var btnEdit = btnEdits[i];
+            btnEdit.addEventListener('click', editFun)
+        }
+        function editFun(event) {
+            var buttonClicked = event.target;
+                if (confirm("هل انت متاكد من ذلك")) {
+                    var id = buttonClicked.id;
+                    var _row = buttonClicked.parentElement.parentElement;
+                    if (id > 0) {
+                        $.ajax({
+                            url: "/Category/Delete/" + id,
+                            type: "POST",
+                            success: function (data) {
+                                if (data.msg == 'Done') {
+                                    _row.remove();
+                                } else {
+                                    alert("يرجى المحاوله مره اخرى")
+                                }
+                            }
+                        })
+                    }
+                }
+        }
+    </script>
+}
